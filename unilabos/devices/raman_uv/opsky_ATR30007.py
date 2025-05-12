@@ -1,20 +1,18 @@
-import clr 
-import os
-import time
-import pandas as pd
 import json
-import shutil
-import sys
-import time
-from System import Environment
+import os
 
-# define class ATR30007 
+import clr
+import pandas as pd
+
+
+# define class ATR30007
 # this class is used to control the ATR30007 Raman workstation
 
 class ATR30007:
     def __init__(self, dll_path: str = r'D:\Raman_RS'):
         self.dll_path = dll_path
         self.machine = None
+        self.status = "Idle"
         self._load_dll()
 
     def _load_dll(self):
@@ -59,6 +57,7 @@ class ATR30007:
         SetC_flag = self.machine.SetCool(CCDTemp)
         print(f"SetC_flag:{SetC_flag}")
         #开始采集光谱
+        self.status = "Running"
         Spect = self.machine.AcquireSpectrum()
         #开始采集光谱谱图数据转换
         Spect_data =  list(Spect.get_Data())
@@ -70,6 +69,8 @@ class ATR30007:
         Spect_bLC = list(self.machine.BaseLineCorrect(Spect_data))
         #对数据进行boxcar 平滑
         Spect_StB = list(self.machine.SmoothBoxcar(Spect_bLC, 10))
+
+        self.status = "Idle"
         #关闭仪器
         OFF_flag = wrapper.CloseDevice()
         print(f"OFF_flag: {OFF_flag}")

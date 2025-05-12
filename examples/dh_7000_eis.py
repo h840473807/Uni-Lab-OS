@@ -6,7 +6,7 @@ if(rclpy.ok() == False):
 else:
     print("rclpy already initiated")
 
-from unilabos.devices.dh_electrochem.dh_7000 import DH7000
+from unilabos.devices.electrochem.dh_7000 import DH7000
 from unilabos_msgs.action import SendCmd
 from std_msgs.msg import Float64, String, Int16
 from unilabos.ros.device_node_wrapper import ros2_device_node

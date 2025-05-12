@@ -6,12 +6,10 @@ if(rclpy.ok() == False):
 else:
     print("rclpy already initiated")
 
-from unilabos.devices.opsky_Raman.opsky_ATR30007 import ATR30007
+from unilabos.devices.raman_uv.opsky_ATR30007 import ATR30007
 from unilabos_msgs.action import SendCmd
-from std_msgs.msg import Float64, String, Int16
 from unilabos.ros.device_node_wrapper import ros2_device_node
-import clr
-import os
+
 # dll_path = r'D:\UniLab\code\DHElecChem\release64'
 # eccore_dll_path = os.path.join(dll_path, 'ECCore.dll')
 # os.environ["PATH"] = dll_path + os.pathsep + os.environ["PATH"]
