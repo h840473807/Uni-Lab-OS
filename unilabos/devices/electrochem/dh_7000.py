@@ -498,7 +498,7 @@ class DH7000:
         print(f"数据已保存到 {save_root}")
 
     # === Core: a unified dh_cmd method that calls start_eis or start_lsv according to methods ===
-    def dh_cmd(self, command: str):
+    def dh_cmd(self, method: str, command: str, resource: dict):
         """
         Unified handler for different commands such as EIS / LSV / CV / CA.
         In the incoming command JSON, use the key "methods" to specify the measurement type: "eis", "lsv", etc.
@@ -516,7 +516,7 @@ class DH7000:
             print(f"命令参数: {cmd_dict}")
 
             # Extract measurement method, default to "EIS" if not specified
-            method = cmd_dict.pop("methods", "eis").lower()
+            # method = cmd_dict.pop("methods", "eis").lower()
             # Extract file save path (may not be provided)
             save_root = cmd_dict.get("save_root", r"D:\UniLab\results\test")
 
